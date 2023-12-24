@@ -43,7 +43,7 @@ const products = [
     quantity: 12,
     brand: {
       name: "Logitech",
-      id: "6412eae89c2275a25d09541dog"
+      id: "6412eae89c2275a25d09541d"
     },
     category: {
       name: "Headphones",
