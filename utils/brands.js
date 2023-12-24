@@ -1,6 +1,6 @@
 const brands = [
   {
-    _id: "6412eae89c2275a25d09541d",
+    _id: "6412eae89c2275a25d09541dog",
     products: ["641e887d05f9ee1717e1348a"],
     name: "Logitech",
     description:
