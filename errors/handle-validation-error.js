@@ -1,4 +1,3 @@
-
 const handleValidationError = (err) => {
   const errors = Object.values(err.errors).map((el) => {
     return {

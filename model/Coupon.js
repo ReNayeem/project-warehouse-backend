@@ -16,7 +16,7 @@ const couponSchema = new mongoose.Schema(
     },
     startTime: {
       type: Date,
-      required: false
+      required: false,
     },
     endTime: {
       type: Date,
@@ -37,12 +37,12 @@ const couponSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["active", "inactive"],
-      default: "active"
+      default: "active",
     },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Coupon = mongoose.models.Coupon || mongoose.model("Coupon", couponSchema);

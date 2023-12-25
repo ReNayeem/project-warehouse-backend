@@ -15,7 +15,7 @@ dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 
 // get all orders user
-module.exports.getOrderByUser = async (req, res,next) => {
+module.exports.getOrderByUser = async (req, res, next) => {
   // console.log(req.user)
   try {
     const { page, limit } = req.query;
@@ -98,12 +98,12 @@ module.exports.getOrderByUser = async (req, res,next) => {
       totalDoc,
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // getOrderById
-module.exports.getOrderById = async (req, res,next) => {
+module.exports.getOrderById = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id);
     res.status(200).json({
@@ -111,12 +111,12 @@ module.exports.getOrderById = async (req, res,next) => {
       order,
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // getDashboardAmount
-exports.getDashboardAmount = async (req, res,next) => {
+exports.getDashboardAmount = async (req, res, next) => {
   try {
     const todayStart = dayjs().startOf("day");
     const todayEnd = dayjs().endOf("day");
@@ -164,11 +164,11 @@ exports.getDashboardAmount = async (req, res,next) => {
     const totalOrders = await Order.find();
     const todayOrderAmount = todayOrders.reduce(
       (total, order) => total + order.totalAmount,
-      0
+      0,
     );
     const yesterdayOrderAmount = yesterdayOrders.reduce(
       (total, order) => total + order.totalAmount,
-      0
+      0,
     );
 
     const monthlyOrderAmount = monthlyOrders.reduce((total, order) => {
@@ -176,7 +176,7 @@ exports.getDashboardAmount = async (req, res,next) => {
     }, 0);
     const totalOrderAmount = totalOrders.reduce(
       (total, order) => total + order.totalAmount,
-      0
+      0,
     );
 
     res.status(200).send({
@@ -190,11 +190,11 @@ exports.getDashboardAmount = async (req, res,next) => {
       yesterDayCashPaymentAmount,
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 // get sales report
-exports.getSalesReport = async (req, res,next) => {
+exports.getSalesReport = async (req, res, next) => {
   try {
     const startOfWeek = new Date();
     startOfWeek.setDate(startOfWeek.getDate() - 7);
@@ -223,12 +223,12 @@ exports.getSalesReport = async (req, res,next) => {
     res.status(200).json({ salesReport: salesReportData });
   } catch (error) {
     // Handle error if any
-    next(error)
+    next(error);
   }
 };
 
 // Most Selling Category
-exports.mostSellingCategory = async (req, res,next) => {
+exports.mostSellingCategory = async (req, res, next) => {
   try {
     const categoryData = await Order.aggregate([
       {
@@ -250,12 +250,12 @@ exports.mostSellingCategory = async (req, res,next) => {
 
     res.status(200).json({ categoryData });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // dashboard recent order
-exports.getDashboardRecentOrder = async (req, res,next) => {
+exports.getDashboardRecentOrder = async (req, res, next) => {
   try {
     const { page, limit } = req.query;
 
@@ -281,7 +281,7 @@ exports.getDashboardRecentOrder = async (req, res,next) => {
           name: 1,
           user: 1,
           totalAmount: 1,
-          status:1,
+          status: 1,
         },
       },
     ]);
@@ -293,6 +293,6 @@ exports.getDashboardRecentOrder = async (req, res,next) => {
       totalOrder: totalDoc,
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };

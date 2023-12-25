@@ -3,12 +3,12 @@ const path = require("path");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/images')
+    cb(null, "public/images");
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E4);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e4);
     cb(null, uniqueSuffix + "-" + file.originalname);
-  }
+  },
 });
 
 const uploader = multer({
@@ -25,7 +25,7 @@ const uploader = multer({
   },
   limits: {
     fileSize: 4000000,
-  }
+  },
 });
 
 module.exports = uploader;

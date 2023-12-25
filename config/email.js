@@ -1,6 +1,6 @@
-require('dotenv').config();
-const nodemailer = require('nodemailer');
-const { secret } = require('./secret');
+require("dotenv").config();
+const nodemailer = require("nodemailer");
+const { secret } = require("./secret");
 
 // sendEmail
 module.exports.sendEmail = (body, res, message) => {
@@ -22,7 +22,7 @@ module.exports.sendEmail = (body, res, message) => {
       });
       console.log(err.message);
     } else {
-      console.log('Server is ready to take our messages');
+      console.log("Server is ready to take our messages");
     }
   });
 
@@ -38,4 +38,3 @@ module.exports.sendEmail = (body, res, message) => {
     }
   });
 };
-

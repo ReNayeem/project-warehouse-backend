@@ -7,7 +7,7 @@ const { secret } = require("../config/secret");
 
 // register user
 // sign up
-exports.signup = async (req, res,next) => {
+exports.signup = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -42,7 +42,7 @@ exports.signup = async (req, res,next) => {
       sendEmail(mailData, res, message);
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
@@ -57,7 +57,7 @@ exports.signup = async (req, res,next) => {
  * 8. generate token
  * 9. send user and token
  */
-module.exports.login = async (req, res,next) => {
+module.exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -106,12 +106,12 @@ module.exports.login = async (req, res,next) => {
       },
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // confirmEmail
-exports.confirmEmail = async (req, res,next) => {
+exports.confirmEmail = async (req, res, next) => {
   try {
     const { token } = req.params;
     const user = await User.findOne({ confirmationToken: token });
@@ -151,12 +151,12 @@ exports.confirmEmail = async (req, res,next) => {
       },
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // forgetPassword
-exports.forgetPassword = async (req, res,next) => {
+exports.forgetPassword = async (req, res, next) => {
   try {
     const { verifyEmail } = req.body;
     const user = await User.findOne({ email: verifyEmail });
@@ -194,12 +194,12 @@ exports.forgetPassword = async (req, res,next) => {
       sendEmail(body, res, message);
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // confirm-forget-password
-exports.confirmForgetPassword = async (req, res,next) => {
+exports.confirmForgetPassword = async (req, res, next) => {
   try {
     const { token, password } = req.body;
     const user = await User.findOne({ confirmationToken: token });
@@ -222,7 +222,7 @@ exports.confirmForgetPassword = async (req, res,next) => {
       const newPassword = bcrypt.hashSync(password);
       await User.updateOne(
         { confirmationToken: token },
-        { $set: { password: newPassword } }
+        { $set: { password: newPassword } },
       );
 
       user.confirmationToken = undefined;
@@ -236,48 +236,47 @@ exports.confirmForgetPassword = async (req, res,next) => {
       });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // change password
-exports.changePassword = async (req, res,next) => {
+exports.changePassword = async (req, res, next) => {
   try {
-    const {email,password,googleSignIn,newPassword} = req.body || {};
+    const { email, password, googleSignIn, newPassword } = req.body || {};
     const user = await User.findOne({ email: email });
     // Check if the user exists
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    if(googleSignIn){
+    if (googleSignIn) {
       const hashedPassword = bcrypt.hashSync(newPassword);
-      await User.updateOne({email:email},{password:hashedPassword})
+      await User.updateOne({ email: email }, { password: hashedPassword });
       return res.status(200).json({ message: "Password changed successfully" });
     }
-    if(!bcrypt.compareSync(password, user?.password)){
+    if (!bcrypt.compareSync(password, user?.password)) {
       return res.status(401).json({ message: "Incorrect current password" });
-    }
-    else {
+    } else {
       const hashedPassword = bcrypt.hashSync(newPassword);
-      await User.updateOne({email:email},{password:hashedPassword})
+      await User.updateOne({ email: email }, { password: hashedPassword });
       res.status(200).json({ message: "Password changed successfully" });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // update a profile
-exports.updateUser = async (req, res,next) => {
+exports.updateUser = async (req, res, next) => {
   try {
-    const userId = req.params.id
+    const userId = req.params.id;
     const user = await User.findById(userId);
     if (user) {
       user.name = req.body.name;
       user.email = req.body.email;
       user.phone = req.body.phone;
       user.address = req.body.address;
-      user.bio = req.body.bio; 
+      user.bio = req.body.bio;
       const updatedUser = await user.save();
       const token = generateToken(updatedUser);
       res.status(200).json({
@@ -290,12 +289,12 @@ exports.updateUser = async (req, res,next) => {
       });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // signUpWithProvider
-exports.signUpWithProvider = async (req, res,next) => {
+exports.signUpWithProvider = async (req, res, next) => {
   try {
     const user = jwt.decode(req.params.token);
     const isAdded = await User.findOne({ email: user.email });
@@ -312,7 +311,7 @@ exports.signUpWithProvider = async (req, res,next) => {
             address: isAdded.address,
             phone: isAdded.phone,
             imageURL: isAdded.imageURL,
-            googleSignIn:true,
+            googleSignIn: true,
           },
         },
       });
@@ -321,7 +320,7 @@ exports.signUpWithProvider = async (req, res,next) => {
         name: user.name,
         email: user.email,
         imageURL: user.picture,
-        status: 'active'
+        status: "active",
       });
 
       const signUpUser = await newUser.save();
@@ -336,12 +335,12 @@ exports.signUpWithProvider = async (req, res,next) => {
             name: signUpUser.name,
             email: signUpUser.email,
             imageURL: signUpUser.imageURL,
-            googleSignIn:true,
-          }
+            googleSignIn: true,
+          },
         },
       });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };

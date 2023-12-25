@@ -7,7 +7,7 @@ const coupons = [
     endTime: "2023-08-28T06:00:00.000Z",
     discountPercentage: 14,
     minimumAmount: 700,
-    productType: "electronics"
+    productType: "electronics",
   },
   {
     _id: "645f0b95af839230b4d5084b",
@@ -17,7 +17,7 @@ const coupons = [
     endTime: "2023-10-22T00:56:00.000Z",
     discountPercentage: 8,
     minimumAmount: 400,
-    productType: "fashion"
+    productType: "fashion",
   },
   {
     _id: "645f0b95af839230b4d5084c",
@@ -27,7 +27,7 @@ const coupons = [
     endTime: "2023-05-01T20:19:00.000Z",
     discountPercentage: 14,
     minimumAmount: 500,
-    productType: "beauty"
+    productType: "beauty",
   },
   {
     _id: "645f0b95af839230b4d5084d",
@@ -37,8 +37,8 @@ const coupons = [
     endTime: "2023-09-01T20:19:00.000Z",
     discountPercentage: 10,
     minimumAmount: 300,
-    productType: "jewelry"
-  }
-]
+    productType: "jewelry",
+  },
+];
 
 module.exports = coupons;

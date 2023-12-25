@@ -9,7 +9,7 @@ exports.generateToken = (userInfo) => {
     role: userInfo.role,
   };
 
-  const token = jwt.sign(payload,secret.token_secret, {
+  const token = jwt.sign(payload, secret.token_secret, {
     expiresIn: "2d",
   });
 
@@ -26,6 +26,6 @@ exports.tokenForVerify = (user) => {
       password: user.password,
     },
     secret.jwt_secret_for_verify,
-    { expiresIn: "10m" }
+    { expiresIn: "10m" },
   );
 };
